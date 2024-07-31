@@ -1,20 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TemplateServiceService } from '../template-service.service';
 
 @Component({
-  selector: 'app-dynamic-content-component',
-  template: '<div [innerHtml]="content | safeHtmlPipe"></div>',
-  styleUrls: ['./dynamic-content-component.component.css']
+  selector: 'app-dynamic-content',
+  templateUrl: './dynamic-content-component.component.html',
+  styleUrls: ['./dynamic-content-component.component.css'],
 })
-export class DynamicContentComponentComponent implements OnInit {
-  content: string = '';
+export class DynamicContentComponent implements AfterViewInit {
+  @ViewChild('container', { static: false }) container: ElementRef | undefined;
+  content: SafeHtml = '';
+  title: string = 'Initial Title';
+  description: string = 'Initial Description';
 
-  constructor(private templateService: TemplateServiceService) {}
+  titleFontSize: string = '16px';
+  titleFontStyle: string = 'Arial';
+  isTitleBold: boolean = false;
+  isTitleItalic: boolean = false;
 
-  ngOnInit() {
-    const data = { title: 'Dance Journey', content: 'Starting dance in high school...' };
+  descriptionFontSize: string = '14px';
+  descriptionFontStyle: string = 'Verdana';
+  isDescriptionBold: boolean = false;
+  isDescriptionItalic: boolean = false;
+
+  constructor(
+    private templateService: TemplateServiceService,
+    private sanitizer: DomSanitizer
+  ) {}
+
+  ngAfterViewInit() {
+    this.updateContentInTemplate(); // Initial load with default values
+  }
+
+  updateContentInTemplate() {
+    const data = {
+      title: this.title,
+      description: this.description,
+      titleFontSize: this.titleFontSize,
+      titleFontStyle: this.titleFontStyle,
+      isTitleBold: this.isTitleBold,
+      isTitleItalic: this.isTitleItalic,
+      descriptionFontSize: this.descriptionFontSize,
+      descriptionFontStyle: this.descriptionFontStyle,
+      isDescriptionBold: this.isDescriptionBold,
+      isDescriptionItalic: this.isDescriptionItalic
+    };
+
     this.templateService.getTemplate('assets/template.html', data)
-      .subscribe(template => this.content = template);
+      .subscribe({
+        next: (template) => {
+          this.content = this.sanitizer.bypassSecurityTrustHtml(template);
+        },
+        error: (err) => {
+          console.error('Error loading template:', err);
+        }
+      });
   }
 }
-

@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DynamicContentComponentComponent } from './dynamic-content-component/dynamic-content-component.component';
-import { SafeHtmlPipePipe } from './safe-html-pipe.pipe';
+import { DynamicContentComponent } from './dynamic-content-component/dynamic-content-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DynamicContentComponentComponent,
-    SafeHtmlPipePipe
+    DynamicContentComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],

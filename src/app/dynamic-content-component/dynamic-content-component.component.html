@@ -1,1 +1,32 @@
-<p>dynamic-content-component works!</p>
+<div class="container">
+  <div #container [innerHTML]="content" class="card"></div>
+  <div class="sidebar">
+    <div class="title-box">
+      <label for="title-input">Title:</label>
+      <textarea
+        id="title-input"
+        placeholder="Enter title here..."
+        [(ngModel)]="title"
+        (ngModelChange)="updateContentInTemplate()"
+        [style.fontSize]="titleFontSize"
+        [style.fontFamily]="titleFontStyle"
+        [style.fontWeight]="isTitleBold ? 'bold' : 'normal'"
+        [style.fontStyle]="isTitleItalic ? 'italic' : 'normal'"
+      ></textarea>
+    </div>
+
+    <div class="description-box">
+      <label for="description-input">Description:</label>
+      <textarea
+        id="description-input"
+        placeholder="Enter description here..."
+        [(ngModel)]="description"
+        (ngModelChange)="updateContentInTemplate()"
+        [style.fontSize]="descriptionFontSize"
+        [style.fontFamily]="descriptionFontStyle"
+        [style.fontWeight]="isDescriptionBold ? 'bold' : 'normal'"
+        [style.fontStyle]="isDescriptionItalic ? 'italic' : 'normal'"
+      ></textarea>
+    </div>
+  </div>
+</div>

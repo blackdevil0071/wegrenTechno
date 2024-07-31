@@ -1,5 +1,85 @@
-<!-- src/assets/template.html -->
-<div>
+<div class="container">
+  <div class="card">
     <h1>{{title}}</h1>
-    <p>{{content}}</p>
+    <p>{{description}}</p>
   </div>
+
+<style>
+  .container {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px;
+  gap: 20px; /* Adds space between card and sidebar */
+}
+
+.card {
+  padding: 20px;
+  height: 80vh;
+  border-radius: 5px;
+  flex: 1; /* Makes the card take up the remaining space */
+  color: rgb(19, 18, 18);
+  text-align: center;
+  background: linear-gradient(to right, #00f260, #0575e6);
+}
+
+.card h1 {
+  font-size: 50px; /* Updated to 50px */
+  font-weight: bold; /* Ensures text is bold */
+  color: white;
+  font-size:xx-large;
+}
+
+.card p {
+  font-size: 15px; /* Updated to 15px */
+  color: white;
+  font-size: large;
+}
+
+.sidebar {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.title-box,
+.description-box {
+  margin-bottom: 20px;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .card {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .sidebar {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card h1 {
+    font-size: 2rem;
+  }
+
+  .card p {
+    font-size: 1rem;
+  }
+}
+
+</style>
